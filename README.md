@@ -16,10 +16,12 @@
 │       └── example.lua           # LazyVim 自带示例（未加载）
 ├── starship/
 │   └── starship.toml             # 提示符主题与多套配色
-└── ghostty/
-    ├── config                    # 终端配置
-    └── shaders/
-        └── cursor_smear_rainbow.glsl   # 光标拖影 shader
+├── ghostty/
+│   ├── config                    # 终端配置
+│   └── shaders/
+│       └── cursor_smear_rainbow.glsl   # 光标拖影 shader
+├── install.sh                    # 一键软链接安装脚本
+└── README.md
 ```
 
 ## 对应的安装位置
@@ -27,9 +29,29 @@
 | 仓库路径 | 目标路径 |
 |---------|---------|
 | `zsh/.zshrc` | `~/.zshrc` |
-| `nvim/` | `~/.config/nvim/` |
+| `nvim/plugins/` | `~/.config/nvim/lua/plugins/` |
 | `starship/starship.toml` | `~/.config/starship/starship.toml` |
-| `ghostty/` | `~/.config/ghostty/` |
+| `ghostty/config` | `~/.config/ghostty/config` |
+| `ghostty/shaders/` | `~/.config/ghostty/shaders/` |
+
+## 安装
+
+本仓库通过 `install.sh` 用**软链接**把配置映射到目标位置，无需 `stow` 等额外依赖。
+
+```bash
+# 先预览将要发生什么（不会改动任何文件）
+./install.sh --dry-run
+
+# 正式安装：已存在的真实文件会被备份成 *.bak.<时间戳>
+./install.sh
+
+# 其他选项
+./install.sh --force     # 覆盖已存在的真实文件（不备份）
+./install.sh --unlink    # 移除本脚本创建的软链接
+./install.sh --help
+```
+
+脚本可重复运行（幂等）。装完后打开新终端、重启 Neovim / Ghostty 即可生效。
 
 ## 各组件说明
 
